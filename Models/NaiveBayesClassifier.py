@@ -38,7 +38,7 @@ class NaiveBayesClassifier:
                         value: value_counts[value] / len(feature_values)
                         for value in value_counts
                     }
-    
+
     def predict(self, x):
         class_scores = {}
         for cls in self.class_probs:
@@ -47,9 +47,5 @@ class NaiveBayesClassifier:
                 if x[feature] in self.cond_probs[(feature, cls)]:
                     class_scores[cls] *= self.cond_probs[(feature, cls)][x[feature]]
                 else:
-                    if self.laplace_smoothing:
-                        class_scores[cls] *= self.laplace_lambda / (len(self.cond_probs[(feature, cls)]) + self.laplace_lambda * len(set(x)))
-                    else:
-                        class_scores[cls] = 0
-        
-        return max(class_scores, key=class_scores.get)
+                    class_scores[cls] *= self.laplace_lambda / (len(self.cond_probs[(feature, cls)]) + self.laplace_lambda * len(set(x)))
+        return class_scores
