@@ -1,8 +1,5 @@
 # How  to install
 
-1. python3 -m venv .venv
-2. 
-
 ```
 python3 -m venv .venv
 . .venv/bin/activate
